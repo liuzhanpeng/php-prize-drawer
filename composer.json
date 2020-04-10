@@ -1,0 +1,21 @@
+{
+    "name": "lzpeng/php-prize-drawer",
+    "description": "抽奖组件",
+    "type": "library",
+    "license": "MIT",
+    "authors": [{
+        "name": "liuzhanpeng",
+        "email": "liuzhanpeng@gmail.com"
+    }],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Lzpeng\\PrizeDrawer\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lzpeng\\PrizeDrawer\\Tests\\": "tests/"
+        }
+    }
+}
