@@ -3,10 +3,10 @@
 namespace Lzpeng\PrizeDrawer\Exception;
 
 /**
- * 奖品配置提供异常
+ * 无效奖品配置异常
  * 
  * @author lzpeng <liuzhanpeng@gmail.com>
  */
-class PrizesConfigProviderException extends Excepton
+class InvalidPrizesConfigException extends Excepton
 {
 }

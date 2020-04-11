@@ -3,6 +3,7 @@
 namespace Lzpeng\PrizeDrawer\PrizesConfigProviders;
 
 use Lzpeng\PrizeDrawer\Contracts\PrizesConfigProviderInterface;
+use Lzpeng\PrizeDrawer\Exception\InvalidPrizesConfigException;
 use PDO;
 
 /**
@@ -45,9 +46,13 @@ class PdoPrizesConfigProvider implements PrizesConfigProviderInterface
     {
         $sql = sprintf('SELECT `id`, `type`, `name`, `description`, `quantity`, `ext_params`, `ext_handler`  FROM `%s`', $this->tableName);
 
-        $sth = $this->conn->prepare($sql);
-        $sth->execute();
+        try {
+            $sth = $this->conn->prepare($sql);
+            $sth->execute();
 
-        return $sth->fetchAll();
+            return $sth->fetchAll();
+        } catch (\PDOException $ex) {
+            throw new InvalidPrizesConfigException(sprintf('奖品配置提供器[PdoPrizesConfigProvider]异常: %s', $ex->getMessage()));
+        }
     }
 }

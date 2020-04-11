@@ -27,7 +27,7 @@ interface PrizesConfigProviderInterface
      * ]
      * ```
      * @return array
-     * @throws \Lzpeng\PrizeDrawer\Exception\PrizesConfigProviderException
+     * @throws \Lzpeng\PrizeDrawer\Exception\InvalidPrizesConfigException
      */
     public function config();
 }
