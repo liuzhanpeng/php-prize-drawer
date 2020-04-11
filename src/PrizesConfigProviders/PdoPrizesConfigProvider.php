@@ -2,7 +2,6 @@
 
 namespace Lzpeng\PrizeDrawer\PrizesConfigProviders;
 
-use Lzpeng\PrizeDrawer\Contracts\PrizesConfigProviderInterface;
 use Lzpeng\PrizeDrawer\Exception\InvalidPrizesConfigException;
 use PDO;
 
@@ -11,7 +10,7 @@ use PDO;
  * 
  * @author lzpeng <liuzhanpeng@gmail.com>
  */
-class PdoPrizesConfigProvider implements PrizesConfigProviderInterface
+class PdoPrizesConfigProvider extends AbstractPrizesConfigProvider
 {
     /**
      * pdo连接对象
@@ -42,7 +41,7 @@ class PdoPrizesConfigProvider implements PrizesConfigProviderInterface
     /**
      * @inheritDoc
      */
-    public function config()
+    public function getConfig()
     {
         $sql = sprintf('SELECT `id`, `type`, `name`, `description`, `quantity`, `ext_params`, `ext_handler`  FROM `%s`', $this->tableName);
 

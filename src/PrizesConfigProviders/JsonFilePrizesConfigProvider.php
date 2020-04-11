@@ -2,7 +2,6 @@
 
 namespace Lzpeng\PrizeDrawer\PrizesConfigProviders;
 
-use Lzpeng\PrizeDrawer\Contracts\PrizesConfigProviderInterface;
 use Lzpeng\PrizeDrawer\Exception\InvalidPrizesConfigException;
 
 /**
@@ -10,7 +9,7 @@ use Lzpeng\PrizeDrawer\Exception\InvalidPrizesConfigException;
  * 
  * @author lzpeng <liuzhanpeng@gmail.com>
  */
-class JsonFilePrizesConfigProvider implements PrizesConfigProviderInterface
+class JsonFilePrizesConfigProvider extends AbstractPrizesConfigProvider
 {
     /**
      * json文件路径
@@ -32,7 +31,7 @@ class JsonFilePrizesConfigProvider implements PrizesConfigProviderInterface
     /**
      * @inheritDoc
      */
-    public function config()
+    public function getConfig()
     {
         $content = file_get_contents($this->filename);
         if ($content === false) {

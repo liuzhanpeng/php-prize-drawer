@@ -2,14 +2,12 @@
 
 namespace Lzpeng\PrizeDrawer\PrizesConfigProviders;
 
-use Lzpeng\PrizeDrawer\Contracts\PrizesConfigProviderInterface;
-
 /**
  * 基于原生数组的奖品配置提供器
  * 
  * @author lzpeng <liuzhanpeng@gmail.com>
  */
-class ArrayPrizesConfigProvider implements PrizesConfigProviderInterface
+class ArrayPrizesConfigProvider extends AbstractPrizesConfigProvider
 {
     /**
      * 奖品配置
@@ -31,7 +29,7 @@ class ArrayPrizesConfigProvider implements PrizesConfigProviderInterface
     /**
      * @inheritDoc
      */
-    public function config()
+    public function getConfig()
     {
         return $this->config;
     }
