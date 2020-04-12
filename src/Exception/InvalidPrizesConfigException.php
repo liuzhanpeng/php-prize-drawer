@@ -7,6 +7,6 @@ namespace Lzpeng\PrizeDrawer\Exception;
  * 
  * @author lzpeng <liuzhanpeng@gmail.com>
  */
-class InvalidPrizesConfigException extends Excepton
+class InvalidPrizesConfigException extends Exception
 {
 }

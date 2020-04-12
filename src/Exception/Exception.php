@@ -7,6 +7,6 @@ namespace Lzpeng\PrizeDrawer\Exception;
  * 
  * @author lzpeng <liuzhanpeng@gmail.com>
  */
-class Excepton extends \Exception
+class Exception extends \Exception
 {
 }
