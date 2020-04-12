@@ -207,7 +207,7 @@ class PrizeCollection implements \Iterator
     /**
      * @inheritDoc
      */
-    public function vaild()
+    public function valid()
     {
         return isset($this->prizes[$this->position]);
     }

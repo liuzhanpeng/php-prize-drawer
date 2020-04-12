@@ -29,9 +29,7 @@ abstract class AbstractPrizesConfigProvider implements PrizesConfigProviderInter
      *
      * @return array
      */
-    abstract public function getConfig()
-    {
-    }
+    abstract public function getConfig();
 
     /**
      * 检查奖品配置合法性

@@ -16,26 +16,34 @@ use Lzpeng\PrizeDrawer\PrizeCollection;
 class AvgByDaysPrizesFilter extends AbstractPrizesFilter
 {
     /**
-     * 开始时间
+     * 开始日期
      *
      * @var \DateTime
      */
     protected $startDate;
 
     /**
-     * 结束时间
+     * 结束日期
      *
      * @var \DateTime
      */
     protected $endDate;
 
     /**
+     * 当天日期
+     *
+     * @var \DateTime
+     */
+    protected $todayDate;
+
+    /**
      * 构造函数
      * 
-     * @param string $startDate 开始时间
-     * @param string $endDate 结束时间
+     * @param string $startDate 开始日期
+     * @param string $endDate 结束日期
+     * @param string $todayDate 当天日期
      */
-    public function __construct(string $startDate, string $endDate)
+    public function __construct(string $startDate, string $endDate, string $todayDate = '')
     {
         try {
             $this->startDate = new \DateTime($startDate);
@@ -52,6 +60,8 @@ class AvgByDaysPrizesFilter extends AbstractPrizesFilter
         if ($this->startDate > $this->endDate) {
             throw new InvalidConfigException('end_date必须在start_date之后');
         }
+
+        $this->todayDate = $todayDate;
     }
 
     /**
@@ -64,7 +74,12 @@ class AvgByDaysPrizesFilter extends AbstractPrizesFilter
         // 要平均分的天数
         $totalDays = $dateInterval->days + 1;
 
-        $today = new \DateTime();
+        if ($this->todayDate === '') {
+            $today = new \DateTime();
+        } else {
+            $today = new \DateTime($this->todayDate);
+        }
+
         if ($today < $this->startDate) {
             throw new NotAnyPrizesException('当前时间无奖品');
         }

@@ -37,11 +37,15 @@ class ChanceStrategy implements StrategyInterface
     public function obtain(array $prizes, UserInterface $user)
     {
         $chanceTotal = array_reduce($prizes, function ($carry, $prize) {
-            return $carry + $prize->chance();
+            $chance = $this->getChance($prize);
+            return $carry + $chance;
         });
 
         usort($prizes, function ($a, $b) {
-            return ($a->chance() < $b->chance()) ? -1 : 1;
+            $aChance = $this->getChance($a);
+            $bChance = $this->getChance($b);
+
+            return ($aChance < $bChance) ? -1 : 1;
         });
 
         foreach ($prizes as $prize) {
@@ -64,9 +68,9 @@ class ChanceStrategy implements StrategyInterface
      */
     private function getChance(PrizeInterface $prize)
     {
-        foreach ($this->chanceMap as $item) {
-            if ($item['id'] === $prize->id()) {
-                return $item['chance'];
+        foreach ($this->chanceMap as $key => $chance) {
+            if ($key == $prize->id()) {
+                return $chance;
             }
         }
 
