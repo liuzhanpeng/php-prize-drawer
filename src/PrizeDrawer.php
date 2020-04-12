@@ -88,13 +88,13 @@ class PrizeDrawer
      * 构造函数
      *
      * @param PrizesConfigProviderInterface $provider 奖品配置提供器
-     * @param StrategyInterface $strategy 抽中策略
      * @param PrizeQuantiyOfDrawAccessorInterface $accessor 已抽数量存取器
+     * @param StrategyInterface $strategy 抽中策略
      */
     public function __construct(
         PrizesConfigProviderInterface $provider,
-        StrategyInterface $strategy,
-        PrizeQuantiyOfDrawAccessorInterface $accessor
+        PrizeQuantiyOfDrawAccessorInterface $accessor,
+        StrategyInterface $strategy
     ) {
         $prizes = PrizesFactory::create($provider->config(), $accessor);
         $this->collection = new PrizeCollection($prizes);
