@@ -12,6 +12,7 @@ use Lzpeng\PrizeDrawer\Contracts\PrizesConfigProviderInterface;
 use Lzpeng\PrizeDrawer\Contracts\PrizesFilterInterface;
 use Lzpeng\PrizeDrawer\Contracts\StrategyInterface;
 use Lzpeng\PrizeDrawer\Contracts\UserInterface;
+use Lzpeng\PrizeDrawer\Event\EventManagerInterface;
 use Lzpeng\PrizeDrawer\Exception\Exception;
 use Lzpeng\PrizeDrawer\Exception\NotAnyPrizesException;
 
@@ -57,6 +58,31 @@ class PrizeDrawer
      * @var \Lzpeng\PrizeDrawer\Contracts\UserInterface
      */
     private $user;
+
+    /**
+     * 设置事件管理器
+     *
+     * @param EventManagerInterface $eventManager
+     * @return void
+     */
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
+        $this->eventManager = $eventManager;
+    }
+
+    /**
+     * 获取事件管理器
+     *
+     * @return EventManagerInterface
+     */
+    protected function getEventManager()
+    {
+        if (is_null($this->eventManager)) {
+            throw new Exception('未设置事件管理器');
+        }
+
+        return $this->eventManager;
+    }
 
     /**
      * 构造函数
@@ -195,6 +221,30 @@ class PrizeDrawer
         }
 
         unset($this->filters[$name]);
+    }
+
+    /**
+     * 注册事件监听器
+     *
+     * @param string $name 事件名称
+     * @param EventListenerInterface|callable $listener 事件监听器
+     * @return void
+     */
+    public function addListener(string $name, $listener)
+    {
+        $this->getEventManager()->addListener($name, $listener);
+    }
+
+    /**
+     * 移除事件监听器
+     *
+     * @param string $name
+     * @param EventListenerInterface|null $listener 如果为null, 即移除事件对应所有监听器
+     * @return void
+     */
+    public function removeListener(string $name, $listener = null)
+    {
+        $this->getEventManager()->removeListener($name, $listener);
     }
 
     /**
