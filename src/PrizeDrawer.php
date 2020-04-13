@@ -104,6 +104,17 @@ class PrizeDrawer
     }
 
     /**
+     * 设置抽中策略
+     *
+     * @param StrategyInterface $strategy
+     * @return void
+     */
+    public function setStrategy(StrategyInterface $strategy)
+    {
+        $this->strategy = $strategy;
+    }
+
+    /**
      * 设置抽奖用户
      *
      * @param \Lzpeng\PrizeDrawer\Contracts\UserInterface|string|integer $user 用户; 如果是string或integer类型，内部会封装成一个通用用户对象
@@ -165,7 +176,7 @@ class PrizeDrawer
             throw new NotAnyPrizesException('过滤后的奖品为空列表');
         }
 
-        $prize = $this->strategy->obtain($prizes, $this->user);
+        $prize = $this->strategy->obtain($prizes, $this->getUser());
         if (is_null($prize)) {
             throw new NotAnyPrizesException('找不到任何奖品');
         }
