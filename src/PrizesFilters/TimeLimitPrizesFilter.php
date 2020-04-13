@@ -29,12 +29,20 @@ class TimeLimitPrizesFilter extends AbstractPrizesFilter
     protected $endDate;
 
     /**
+     * 当天日期
+     *
+     * @var string
+     */
+    protected $now;
+
+    /**
      * 构造函数
      *
      * @param string $startTime 开始时间
      * @param string $endTime 结束时间
+     * @param string $now 当前时间
      */
-    public function __construct(string $startTime, string $endTime)
+    public function __construct(string $startTime, string $endTime, string $now = '')
     {
         try {
             $this->startDate = new \DateTime(date('Y-m-d') . ' ' . $startTime);
@@ -51,6 +59,8 @@ class TimeLimitPrizesFilter extends AbstractPrizesFilter
         if ($this->startDate > $this->endDate) {
             throw new InvalidConfigException('end_time必须在start_time之后');
         }
+
+        $this->now = $now;
     }
 
     /**
@@ -58,15 +68,24 @@ class TimeLimitPrizesFilter extends AbstractPrizesFilter
      */
     public function filter(PrizeCollection $collection, UserInterface $user)
     {
-        $now = new \DateTime();
+        if ($this->now === '') {
+            $nowDate = new \DateTime();
+        } else {
+            $nowDate = new \DateTime($this->now);
+        }
 
-        if ($now < $this->startDate || $now > $this->endDate) {
+        if ($nowDate < $this->startDate || $nowDate > $this->endDate) {
             // 非有效时间段内只返回假奖品，并停止后续过滤
             $this->stop();
-            foreach ($collection as $prize) {
+            $removeIds = [];
+            foreach ($collection as $key => $prize) {
                 if (!$prize instanceof DummyInterface) {
-                    $collection->remove($prize->id());
+                    $removeIds[] = $prize->id();
                 }
+            }
+
+            foreach ($removeIds as $id) {
+                $collection->remove($id);
             }
         }
 

@@ -32,9 +32,9 @@ class AvgByDaysPrizesFilter extends AbstractPrizesFilter
     /**
      * 当天日期
      *
-     * @var \DateTime
+     * @var string
      */
-    protected $todayDate;
+    protected $today;
 
     /**
      * 构造函数
@@ -43,7 +43,7 @@ class AvgByDaysPrizesFilter extends AbstractPrizesFilter
      * @param string $endDate 结束日期
      * @param string $todayDate 当天日期
      */
-    public function __construct(string $startDate, string $endDate, string $todayDate = '')
+    public function __construct(string $startDate, string $endDate, string $today = '')
     {
         try {
             $this->startDate = new \DateTime($startDate);
@@ -61,7 +61,7 @@ class AvgByDaysPrizesFilter extends AbstractPrizesFilter
             throw new InvalidConfigException('end_date必须在start_date之后');
         }
 
-        $this->todayDate = $todayDate;
+        $this->today = $today;
     }
 
     /**
@@ -74,18 +74,18 @@ class AvgByDaysPrizesFilter extends AbstractPrizesFilter
         // 要平均分的天数
         $totalDays = $dateInterval->days + 1;
 
-        if ($this->todayDate === '') {
-            $today = new \DateTime();
+        if ($this->today === '') {
+            $todayDate = new \DateTime();
         } else {
-            $today = new \DateTime($this->todayDate);
+            $todayDate = new \DateTime($this->today);
         }
 
-        if ($today < $this->startDate) {
+        if ($todayDate < $this->startDate) {
             throw new NotAnyPrizesException('当前时间无奖品');
         }
 
         // 已过去的天数
-        $dateInterval = $today->diff($this->startDate);
+        $dateInterval = $todayDate->diff($this->startDate);
         $goneDays = $dateInterval->days + 1;
 
         foreach ($collection as $prize) {
