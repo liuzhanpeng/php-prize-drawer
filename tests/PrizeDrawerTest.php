@@ -77,12 +77,22 @@ class PrizeDrawerTest extends TestCase
         return $prizeDrawer;
     }
 
-    /**
+    /** 
      * @depends clone testNew
      */
     public function testDrawWithoutUser($prizeDrawer)
     {
         $this->expectException(Exception::class);
+
+        $prizeDrawer->draw();
+    }
+
+    /** 
+     * @depends clone testNew
+     */
+    public function testDrawWithStringUser($prizeDrawer)
+    {
+        $prizeDrawer->setUser('test_user');
 
         $prizeDrawer->draw();
     }
@@ -103,10 +113,26 @@ class PrizeDrawerTest extends TestCase
     /**
      * @depends clone testNew
      */
-    public function testPrizes($prizeDrawer)
+    public function testDrawWithoutAnyPrizes($prizeDrawer)
     {
+        $strategy = $this->getMockBuilder(StrategyInterface::class)->getMock();
+        $strategy->method('obtain')->willReturn(null);
+
         $user = $this->getMockBuilder(UserInterface::class)->getMock();
 
+        $prizeDrawer->setStrategy($strategy);
+        $prizeDrawer->setUser($user);
+
+        $this->expectException(NotAnyPrizesException::class);
+
+        $prize = $prizeDrawer->draw();
+    }
+
+    /**
+     * @depends clone testNew
+     */
+    public function testPrizes($prizeDrawer)
+    {
         $prizes = $prizeDrawer->prizes();
 
         $this->assertCount(5, $prizes);
@@ -151,6 +177,28 @@ class PrizeDrawerTest extends TestCase
         $prizeDrawer->addFilter('test', $prizeFilter);
 
         $this->expectException(NotAnyPrizesException::class);
+        $prizeDrawer->draw();
+    }
+
+    /**
+     * @depends clone testNew
+     */
+    public function testInvokeExtHandlerWithException($prizeDrawer)
+    {
+        $strategy = $this->getMockBuilder(StrategyInterface::class)->getMock();
+        $strategy->method('obtain')->willReturn(new ExtensiblePrize(4, '扩展奖品1', '', 10, 'this is params', function ($parms, $user) {
+            throw new \Exception('异常信息');
+        }));
+
+        $prizeDrawer->setStrategy($strategy);
+
+        $user = $this->getMockBuilder(UserInterface::class)->getMock();
+
+        $prizeDrawer->setUser($user);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('异常信息');
+
         $prizeDrawer->draw();
     }
 

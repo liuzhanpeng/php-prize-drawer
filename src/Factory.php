@@ -70,7 +70,7 @@ class Factory
      */
     static public function create(array $config)
     {
-        if (!isset($config['provicer'])) {
+        if (!isset($config['provider'])) {
             throw new InvalidConfigException('找不到配置项[provider]');
         }
         if (!isset($config['strategy'])) {
@@ -299,7 +299,7 @@ class Factory
     static private function addFilters(PrizeDrawer $prizeDrawer, array $config)
     {
         foreach ($config as $driver => $params) {
-            if (isset(static::$prizesFiltersFactories[$driver])) {
+            if (!isset(static::$prizesFiltersFactories[$driver])) {
                 throw new InvalidConfigException(sprintf('未注的过滤器[%s]', $driver));
             }
 
