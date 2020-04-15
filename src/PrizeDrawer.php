@@ -12,6 +12,7 @@ use Lzpeng\PrizeDrawer\Contracts\PrizesConfigProviderInterface;
 use Lzpeng\PrizeDrawer\Contracts\PrizesFilterInterface;
 use Lzpeng\PrizeDrawer\Contracts\StrategyInterface;
 use Lzpeng\PrizeDrawer\Contracts\UserInterface;
+use Lzpeng\PrizeDrawer\Event\Event;
 use Lzpeng\PrizeDrawer\Event\EventManagerInterface;
 use Lzpeng\PrizeDrawer\Exception\Exception;
 use Lzpeng\PrizeDrawer\Exception\NotAnyPrizesException;
@@ -24,6 +25,8 @@ use Lzpeng\PrizeDrawer\Exception\NotAnyPrizesException;
  */
 class PrizeDrawer
 {
+    const EVENT_DRAW_AFTER = 'draw_after';
+
     /**
      * 奖品集合
      *
@@ -176,6 +179,7 @@ class PrizeDrawer
             throw new NotAnyPrizesException('过滤后的奖品为空列表');
         }
 
+
         $prize = $this->strategy->obtain($prizes, $this->getUser());
         if (is_null($prize)) {
             throw new NotAnyPrizesException('找不到任何奖品');
@@ -192,6 +196,11 @@ class PrizeDrawer
         if ($prize instanceof QuantifiableInterface) {
             $this->accessor->increaseQuantityOfDraw($prize);
         }
+
+        $this->getEventManager()->dispatch(self::EVENT_DRAW_AFTER, new Event([
+            'prize' => $prize,
+            'user' => $this->user,
+        ]));
 
         return $prize;
     }
