@@ -85,5 +85,5 @@ try {
 }
 
 // 返回奖品列表
-$prizes = $drawer->prizes(false); // 如果参数为ture, 将会在各个非Dummy类型的奖品中附加一个名为"quantityOfDraw"的属性表示已抽数量
+$prizes = $drawer->prizes();
 ```
