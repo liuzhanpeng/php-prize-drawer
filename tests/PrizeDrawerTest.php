@@ -7,6 +7,7 @@ use Lzpeng\PrizeDrawer\Contracts\PrizesConfigProviderInterface;
 use Lzpeng\PrizeDrawer\Contracts\PrizesFilterInterface;
 use Lzpeng\PrizeDrawer\Contracts\StrategyInterface;
 use Lzpeng\PrizeDrawer\Contracts\UserInterface;
+use Lzpeng\PrizeDrawer\Event\EventManagerInterface;
 use Lzpeng\PrizeDrawer\Exception\Exception;
 use Lzpeng\PrizeDrawer\Exception\NotAnyPrizesException;
 use Lzpeng\PrizeDrawer\PrizeCollection;
@@ -72,7 +73,10 @@ class PrizeDrawerTest extends TestCase
         $strategy = $this->getMockBuilder(StrategyInterface::class)->getMock();
         $strategy->method('obtain')->willReturn(new NormalPrize(1, '奖品1', '', 100));
 
+        // $eventManager = $this->getMockBuilder(EventManagerInterface::class)->getMock();
+
         $prizeDrawer = new PrizeDrawer($provider, $accessor, $strategy);
+        // $prizeDrawer->setEventManager($eventManager);
 
         return $prizeDrawer;
     }

@@ -13,6 +13,7 @@ use Lzpeng\PrizeDrawer\Contracts\PrizesFilterInterface;
 use Lzpeng\PrizeDrawer\Contracts\StrategyInterface;
 use Lzpeng\PrizeDrawer\Contracts\UserInterface;
 use Lzpeng\PrizeDrawer\Event\Event;
+use Lzpeng\PrizeDrawer\Event\EventManager;
 use Lzpeng\PrizeDrawer\Event\EventManagerInterface;
 use Lzpeng\PrizeDrawer\Exception\Exception;
 use Lzpeng\PrizeDrawer\Exception\NotAnyPrizesException;
@@ -63,29 +64,11 @@ class PrizeDrawer
     private $user;
 
     /**
-     * 设置事件管理器
+     * 事件管理器
      *
-     * @param EventManagerInterface $eventManager
-     * @return void
+     * @var EventManagerInterface
      */
-    public function setEventManager(EventManagerInterface $eventManager)
-    {
-        $this->eventManager = $eventManager;
-    }
-
-    /**
-     * 获取事件管理器
-     *
-     * @return EventManagerInterface
-     */
-    protected function getEventManager()
-    {
-        if (is_null($this->eventManager)) {
-            throw new Exception('未设置事件管理器');
-        }
-
-        return $this->eventManager;
-    }
+    private $eventManager;
 
     /**
      * 构造函数
@@ -104,6 +87,31 @@ class PrizeDrawer
 
         $this->strategy = $strategy;
         $this->accessor = $accessor;
+    }
+
+    /**
+     * 设置事件管理器
+     *
+     * @param EventManagerInterface $eventManager
+     * @return void
+     */
+    public function setEventManager(EventManagerInterface $eventManager)
+    {
+        $this->eventManager = $eventManager;
+    }
+
+    /**
+     * 获取事件管理器
+     *
+     * @return EventManagerInterface
+     */
+    protected function getEventManager()
+    {
+        if (is_null($this->eventManager)) {
+            $this->eventManager = new EventManager();
+        }
+
+        return $this->eventManager;
     }
 
     /**
@@ -237,7 +245,7 @@ class PrizeDrawer
     public function removeFilter(string $name)
     {
         if (!isset($this->filters[$name])) {
-            throw new Exception(sprintf('没法移除奖品列表过滤器[%s]', $name));
+            throw new Exception(sprintf('找不到要移除奖品列表过滤器[%s]', $name));
         }
 
         unset($this->filters[$name]);

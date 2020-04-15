@@ -34,9 +34,9 @@ class ExtensiblePrize extends NormalPrize implements ExtensibleInterface
      * @param string $description 描述
      * @param integer $quantity 数量
      * @param mixed $extParmas 扩展参数
-     * @param callble $extHandler 扩展处理程序
+     * @param callable|string $extHandler 扩展处理程序
      */
-    public function __construct($id, string $name, string $description, int $quantity, $extParams, callable $extHandler)
+    public function __construct($id, string $name, string $description, int $quantity, $extParams, $extHandler)
     {
         parent::__construct($id, $name, $description, $quantity);
 

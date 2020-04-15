@@ -20,7 +20,7 @@ interface ExtensibleInterface
     /**
      * 返回扩展处理程序
      *
-     * @return ExtHandlerInterface|callable|string
+     * @return callable|string
      */
     public function extHandler();
 }
