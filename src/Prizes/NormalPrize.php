@@ -31,12 +31,12 @@ class NormalPrize extends AbstractPrize implements QuantifiableInterface
      *
      * @param mixed $id 标识
      * @param string $name 名称
-     * @param string $description 描述
+     * @param string $data 数据
      * @param integer $quantity 数量
      */
-    public function __construct($id, string $name, string $description, int $quantity)
+    public function __construct($id, string $name, $data, int $quantity)
     {
-        parent::__construct($id, $name, $description);
+        parent::__construct($id, $name, $data);
 
         $this->quantity = $quantity;
     }

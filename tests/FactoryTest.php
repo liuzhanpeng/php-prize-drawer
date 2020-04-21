@@ -18,13 +18,11 @@ class FactoryTest extends TestCase
                         'type' => 'Dummy',
                         'id' => 1,
                         'name' => '谢谢参与',
-                        'description' => '',
                     ],
                     [
                         'type' => 'Normal',
                         'id' => 2,
                         'name' => '奖品1',
-                        'description' => '',
                         'quantity' => 100,
                     ],
                 ]

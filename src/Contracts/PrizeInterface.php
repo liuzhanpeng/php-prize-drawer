@@ -31,9 +31,9 @@ interface PrizeInterface
     public function name();
 
     /**
-     * 返回奖品描述
+     * 返回奖品数据
      *
-     * @return string
+     * @return mixed
      */
-    public function description();
+    public function data();
 }

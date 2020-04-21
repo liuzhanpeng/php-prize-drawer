@@ -20,7 +20,7 @@ class DummyPrizeCreator implements PrizeCreatorInterface
         return new DummyPrize(
             $configItem['id'],
             $configItem['name'],
-            $configItem['description'] ?? ''
+            $configItem['data'] ?? null
         );
     }
 }
