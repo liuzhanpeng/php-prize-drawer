@@ -19,7 +19,6 @@ $drawer = Factory::create([
                 'type' => 'Normal', // 支持Dummy、Normal、Extensible
                 'id' => 1,
                 'name' => '奖品1',
-                // 'description' => '',
                 'quantity' => 100,
                 // 'ext_params' => 10.00
                 // 'ext_handler' => callable
@@ -28,7 +27,6 @@ $drawer = Factory::create([
                 'type' => 'Dummy', // 支持Dummy、Normal、Extensible
                 'id' => 2,
                 'name' => '谢谢参与',
-                // 'description' => '',
             ], ..
         ]
     ],

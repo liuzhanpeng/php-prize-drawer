@@ -29,7 +29,7 @@ class ExtensiblePrizeCreator implements PrizeCreatorInterface
         return new ExtensiblePrize(
             $configItem['id'],
             $configItem['name'],
-            $configItem['description'] ?? '',
+            $configItem['data'] ?? null,
             $configItem['quantity'],
             $configItem['ext_params'],
             $configItem['ext_handler']

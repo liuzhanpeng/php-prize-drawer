@@ -26,24 +26,24 @@ abstract class AbstractPrize implements PrizeInterface
     protected $name;
 
     /**
-     * 描述
+     * 数据
      *
-     * @var string
+     * @var mixed
      */
-    protected $description;
+    protected $data;
 
     /**
      * 构造函数
      *
      * @param mixed $id 标识
      * @param string $name 名称
-     * @param string $description 描述
+     * @param string $data 数据
      */
-    public function __construct($id, string $name, string $description)
+    public function __construct($id, string $name, $data)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->description = $description;
+        $this->data = $data;
     }
 
     /**
@@ -65,8 +65,8 @@ abstract class AbstractPrize implements PrizeInterface
     /**
      * @inheritDoc
      */
-    public function description()
+    public function data()
     {
-        return $this->description;
+        return $this->data;
     }
 }

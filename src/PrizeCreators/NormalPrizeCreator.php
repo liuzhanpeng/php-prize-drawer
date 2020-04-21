@@ -25,7 +25,7 @@ class NormalPrizeCreator implements PrizeCreatorInterface
         return new NormalPrize(
             $configItem['id'],
             $configItem['name'],
-            $configItem['description'] ?? '',
+            $configItem['data'] ?? null,
             $configItem['quantity']
         );
     }
