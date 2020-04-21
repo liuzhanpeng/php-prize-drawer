@@ -30,27 +30,23 @@ class PrizeDrawerTest extends TestCase
                 'type' => 'Normal',
                 'id' => 1,
                 'name' => '奖品1',
-                'description' => '',
                 'quantity' => 100,
             ],
             [
                 'type' => 'Normal',
                 'id' => 2,
                 'name' => '奖品1',
-                'description' => '',
                 'quantity' => 10,
             ],
             [
                 'type' => 'Dummy',
                 'id' => 3,
                 'name' => '谢谢参与',
-                'description' => '',
             ],
             [
                 'type' => 'Extensible',
                 'id' => 4,
                 'name' => '扩展奖品1',
-                'description' => '',
                 'quantity' => 10,
                 'ext_params' => 10.00,
                 'ext_handler' => function ($params, $user) {
@@ -60,7 +56,6 @@ class PrizeDrawerTest extends TestCase
                 'type' => 'Extensible',
                 'id' => 5,
                 'name' => '扩展奖品2',
-                'description' => '',
                 'quantity' => 80,
                 'ext_params' => 1.00,
                 'ext_handler' => function ($params, $user) {
@@ -153,7 +148,6 @@ class PrizeDrawerTest extends TestCase
                 'type' => 'Dummy',
                 'id' => 3,
                 'name' => '谢谢参与',
-                'description' => '',
             ],
         ]));
 

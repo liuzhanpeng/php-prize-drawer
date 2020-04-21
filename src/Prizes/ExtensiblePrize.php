@@ -31,14 +31,14 @@ class ExtensiblePrize extends NormalPrize implements ExtensibleInterface
      *
      * @param mixed $id 标识
      * @param string $name 名称
-     * @param string $description 描述
+     * @param string $data 数据
      * @param integer $quantity 数量
      * @param mixed $extParmas 扩展参数
      * @param callable|string $extHandler 扩展处理程序
      */
-    public function __construct($id, string $name, string $description, int $quantity, $extParams, $extHandler)
+    public function __construct($id, string $name, $data, int $quantity, $extParams, $extHandler)
     {
-        parent::__construct($id, $name, $description, $quantity);
+        parent::__construct($id, $name, $data, $quantity);
 
         $this->extParams = $extParams;
         $this->extHandler = $extHandler;

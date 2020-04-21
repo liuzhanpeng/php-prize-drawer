@@ -43,7 +43,7 @@ class PdoPrizesConfigProvider extends AbstractPrizesConfigProvider
      */
     public function getConfig()
     {
-        $sql = sprintf('SELECT `id`, `type`, `name`, `description`, `quantity`, `ext_params`, `ext_handler`  FROM `%s`', $this->tableName);
+        $sql = sprintf('SELECT `id`, `type`, `name`, `quantity`, `ext_params`, `ext_handler`  FROM `%s`', $this->tableName);
 
         try {
             $sth = $this->conn->prepare($sql);
